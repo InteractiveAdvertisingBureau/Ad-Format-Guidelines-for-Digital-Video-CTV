@@ -945,8 +945,7 @@ Bid Request
 			"id":"1",
 			"bidfloor":9.5,
 			"video":{
-				"plcmt":5,
-				"pos":22,
+				"plcmt":9,
 				"linearity":2,
 			    	"w": 1400,
 			    	"h": 400,
