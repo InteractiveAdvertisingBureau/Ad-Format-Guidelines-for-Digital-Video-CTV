@@ -1097,7 +1097,7 @@ Bid Request
     	"plcmt": 8,
     	"pos":16,
     	"playbackmethod": [2],
-    	"mimes": ["img/png"],
+    	"mimes": ["image/png"],
     	
        "skip": 0,
     	"w": 1920,
@@ -1197,7 +1197,7 @@ VAST Response
                             <Tracking event="thirdQuartile"><![CDATA[THIRD]]></Tracking>
                             <Tracking event="complete"><![CDATA[COMPLETE]]></Tracking>
                         </TrackingEvents>
-                        <NonLinear width="1280" height="720" scalable="true" maintainAspectRatio="true">
+                        <NonLinear width="1920" height="1080" scalable="true" maintainAspectRatio="true">
      			            	<Duration>00:00:10</Duration>
 <StaticResource id="atv" creativeType="image/png">
 <![CDATA[https://your.cdn.net/creative/Lbanner/123456.png]]>
@@ -1219,7 +1219,7 @@ VAST Response
 		<Extension type="playbackmethod" ext="adcom">
 		  <playbackmethod>2</playbackmethod>
 		</Extension>
-        </Extension>
+        </Extensions>
         </InLine>
     </Ad>
 </VAST>
@@ -1237,7 +1237,7 @@ Bid Request
   	"video": {
     	"linearity": 2,
     	"plcmt": 7,
-    	"pos":5,
+    	"pos":14,
     	"playbackmethod": [2],
     	"mimes": ["video/mp4, image/png"],
       "skip": 0,
