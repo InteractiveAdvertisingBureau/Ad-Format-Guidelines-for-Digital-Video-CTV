@@ -59,9 +59,7 @@ The following table summarizes the AdCOM enumeration values used to signal each 
 | Menu execution | Request object | Placement signal | Asset declaration | Expected response pattern |
 |---|---|---|---|---|
 | Tile / in-menu unit | imp.native.request.native | plcmttype = 1 when feed/tile semantics fit | assets[] specifies image, video, or both | Native response with img.url, video.vasttag, or both |
-| headline banner | imp.native.request.native | plcmttype = 3 when outside-core-content/banner semantics fit | assets[] specifies image, video, or both | Native response with direct asset URL and/or embedded VAST |
-| Exchange-specific menu subtype | imp.native.request.native | plcmttype = 500+ or documented ext | assets[] still declares image, video, or both | Same Native response pattern; exchange-defined subtype only adds menu-specific semantics |
-
+| headline banner | imp.native.request.native | plcmttype = 3 when outside-core-content/banner semantics fit | assets[] specifies image, video, or both | Native response with img.url, video.vasttag, or both |
 
 ### Declaring Creative Experience with battr and attr
 
