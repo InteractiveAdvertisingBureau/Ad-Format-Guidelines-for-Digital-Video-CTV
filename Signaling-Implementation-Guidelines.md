@@ -90,19 +90,64 @@ It is understood that the industry will need time to migrate to this new standar
 ## Deep Linking & Clickthrough to Destination 
 If advertisers expect a traditional clickthrough with their ad, they should continue to use clickthrough url in VAST. Publisher execution of this feature may vary, and advertisers should check with their publisher partner to understand the capabilities.
 
-## SIMID Based Interactivity Ad Units
-All formats in the CTV Ad Portfolio may be interactive. SIMID is the industry standard for interactivity. In the request, feature support may be signaled using the api attribute in the video object. 
+## Secure Interactive Ad Units (via SIMID)
+CTV Ad Portfolio ad units may support interactive or dynamic behavior when the publisher, player, device, and execution environment support the required interactive framework introduced in VAST 4.2. Secure Interactive Media Interface Definition (SIMID) is the IAB Tech Lab standard for secure interactive media ads. SIMID separates the interactive creative layer from the renderable media asset so that the publisher player remains in control of playback, user experience, and supported interaction behavior.
 
-Necessary support may be signaled by the advertiser in VAST:
+Unlike VPAID, SIMID is built with publisher control and security by design. SIMID only focuses on rich media interactivity and leaves other use cases (like measurement) to other standards. This allows SIMID to be lean, fast, and easily supported by offering an open source implementation.
+
+SIMID support should not be inferred from the presence of JavaScript, HTML, iframe content, or another executable resource. Support should be explicitly established through the transaction and explicitly declared in VAST or signaled via OpenRTB.
+
+In the bid request, SIMID support must be signaled using the api attribute in the OpenRTB video object, where applicable. Advertisers and ad servers should only return SIMID-based creative when the buying and selling systems have established that SIMID execution is supported for the placement. SIMID supports graceful degradation in players that don’t support SIMID by allowing the player to play the media files without the SIMID overlay. This allows for an opportunity to show a creative without interactivity rather than simply not working entirely.
+
+For CTV Ad Portfolio ad units delivered through VAST, SIMID is declared using:
+
 
 ```xml
-	LinearAds:
-	use <InteractiveCreativeFile apiFramework=”SIMID”> to declare the creative markup in <MediaFile> is SIMID 
-
-
-	NonLinearAds:
-	use <IFrameResource apiFramework=”SIMID”> to both declare SIMID and provide the creative markup.
+	<InteractiveCreativeFile apiFramework="SIMID">
 ```
+
+<b>VAST Declaration Pattern for CTV Ad Portfolio Units</b>
+
+When a VAST response is used for Pause, Screensaver, Overlay, Squeezeback, or In-Scene ads, the ad should be declared using `<NonLinearAds>`. Menu ads are transacted through the Native API and are not delivered using VAST Linear or NonLinear creative declarations.
+
+For interactive CTV Ad Portfolio `<NonLinearAds>`, the SIMID file should be declared using `<InteractiveCreativeFile apiFramework="SIMID">` inside the NonLinear `<MediaFiles>` container.
+
+This is the preferred VAST 4.4 pattern for secure interactive NonLinear creative. The prior pattern of using `<IFrameResource apiFramework="SIMID">` is not recommended for CTV Ad Portfolio NonLinear ads.
+
+<b>Fallback Media</b>
+
+When a NonLinear ad includes both an interactive experience and a renderable fallback, the sender may include both:
+
+A ready-to-render `<MediaFile>` for fallback display.
+An `<InteractiveCreativeFile apiFramework="SIMID">` for the interactive experience.
+
+If the player can execute the SIMID file, it should attempt to run the interactive creative according to the SIMID framework and the publisher’s supported user experience. If the SIMID file cannot be executed and a ready-to-render `<MediaFile>` is available, the player may render the fallback media file. If neither the interactive file nor a fallback media file can be rendered, the player should fire the relevant VAST error URI using the most appropriate VAST error code.
+
+Example:
+
+```xml
+	<NonLinearAds>
+  <NonLinear width="1920" height="1080">
+    <Duration>00:00:15</Duration>
+    <MediaFiles>
+      <MediaFile delivery="progressive" type="video/mp4" width="1920" height="1080">
+        <![CDATA[https://cdn.example.com/ad/nonlinear-fallback.mp4]]>
+      </MediaFile>
+      <InteractiveCreativeFile type="text/html" apiFramework="SIMID">
+        <![CDATA[https://cdn.example.com/ad/nonlinear-simid.html]]>
+      </InteractiveCreativeFile>
+    </MediaFiles>
+  </NonLinear>
+</NonLinearAds>
+```
+
+<b>Implementation Notes</b>
+
+`<MediaFile>` represents a renderable media asset. `<InteractiveCreativeFile>` represents the separate interactive creative layer and identifies the framework required to execute it. This distinction is important for safe execution, fallback behavior, and interoperability across CTV player, platform, SSAI, and measurement environments.
+
+The publisher should remain in control of whether the interactive layer may execute, how viewer interaction is exposed, and what fallback behavior applies when SIMID is unsupported or unavailable.
+
+Advertisers should include a fallback media asset when the ad can still deliver value without the interactive layer. Publishers and platforms should be resilient when receiving interactive creative they cannot execute and should fall back to the declared media asset when available.
 
 ## Purpose of VAST ext & Failure Cases
 Advertisers should respect the values provided in the bid request by the publisher and ensure that any creative sent is a match. 
