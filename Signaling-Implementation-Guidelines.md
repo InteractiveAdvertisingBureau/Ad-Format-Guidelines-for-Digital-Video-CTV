@@ -16,6 +16,7 @@ A few cross-cutting notes before the format-by-format guidance:
 - The five non-linear formats (Pause, Screensaver, Overlay, Squeezeback, In-Scene) reuse the existing OpenRTB Video imp object. No new top-level RTB attributes are introduced; differentiation comes entirely from expanded AdCOM enumerations on plcmt, pos, and playbackmethod, paired with the updated VAST <NonLinearAds> node.
 - The Menu format uses the OpenRTB Native imp object. Existing Native placement types (1–4) cover most CTV menu/tile contexts, and the existing 500+ exchange-defined range remains available for exchange-specific placements where 1–4 do not fit.
 - VAST <Extensions> are used to round-trip pos and attr so that publishers, stitchers, and measurement vendors can validate the creative experience independently of the bid response payload. This is particularly important when the VAST is consumed downstream of the original RTB transaction (for example, by a stitcher that does not see the bid object).
+- NonLinear VAST examples for Pause, Screensaver, Overlay, Squeezeback, and In-Scene declare version="4.4". That is the version that defines the updated NonLinear content model (<MediaFiles> and <Duration> under <NonLinear>, and <Icons> under <NonLinearAds>). The 4.4 schema is still a working-group draft, so 4.2 and 4.3 responses using these constructs are in market today. Once 4.4 is published, responses that use this content model should declare version="4.4". Menu examples that embed Linear VAST in Native remain on 4.2.
 
 ### Overall Flow
 
@@ -296,9 +297,10 @@ Menu Ad - Video Only - OpenRTB Response
           }
         ],
         "seat": "example-dsp-seat-1"
-        "bidid": "response-bid-id-abc123",
-        "cur": "USD"
       }
+    ],
+    "bidid": "response-bid-id-abc123",
+    "cur": "USD"
 }
 ```
 
@@ -663,6 +665,8 @@ Menu Ad - Mixed - OpenRTB Response - Native Payload - VAST
         </Creative>
       </Creatives>
     </InLine>
+  </Ad>
+</VAST>
 ```
 
 Pause & Screensaver Ad(s)
@@ -734,8 +738,8 @@ Bid Response
       	"id": "bid-static-004",
       	"impid": "imp-1",
       	"price": 7.50,
-      	"adm": "<VAST version=\"4.2\"><!-- Static Image NonLinear VAST --></VAST>",
-		"attr": [19,21]
+      	"adm": "<VAST version=\"4.4\"><!-- Static Image NonLinear VAST --></VAST>",
+		"attr": [19,21],
       	"adid": "ad-brand-w-static",
       	"adomain": ["brand-w.com"],
       	"crid": "cr-static-004",
@@ -754,8 +758,7 @@ Bid Response
 ```
 
 ```xml
-VAST 
-<VAST version="4.2">
+<VAST version="4.4">
   <Ad id="pause-static-001">
     <InLine>
       <AdSystem version="1.0">ExampleAdServer</AdSystem>
@@ -881,7 +884,7 @@ Bid Response
       	"id": "bid-cine-001",
       	"impid": "imp-1",
       	"price": 22.50,
-      	"adm": "<VAST version=\"4.2\"><!-- Cinemagraph NonLinear VAST --></VAST>",
+      	"adm": "<VAST version=\"4.4\"><!-- Cinemagraph NonLinear VAST --></VAST>",
       	"adid": "ad-brand-x-cine",
       	"adomain": ["brand-x.com"],
       	"crid": "cr-cinemagraph-001",
@@ -903,7 +906,7 @@ Bid Response
 
 VAST
 ```xml
-<VAST version="4.2">
+<VAST version="4.4">
   <Ad id="pause-cine-003">
     <InLine>
       <AdSystem version="1.0">ExampleAdServer</AdSystem>
@@ -971,8 +974,8 @@ VAST
 		<Extension type="attr" ext="adcom">
 		  <attr>22</attr>
 		</Extension>
-        </Extension>
-
+      </Extensions>
+    </InLine>
   </Ad>
 </VAST>
 ```
@@ -1001,10 +1004,7 @@ Bid Request
 					8
 				]
 			}
-				
-					]
-				}
-		},
+		}
 	],
 	"app":{
 		"id":"example.ctv.app",
@@ -1052,7 +1052,7 @@ Static Image
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
-<VAST xmlns="http://www.iab.com/VAST" version="4.2">
+<VAST xmlns="http://www.iab.com/VAST" version="4.4">
 <Ad id="ISCENE-23918">
 <InLine>
 <AdSystem>ADSERVER</AdSystem>
@@ -1089,7 +1089,7 @@ Video Response
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
-<VAST xmlns="http://www.iab.com/VAST" version="4.2">
+<VAST xmlns="http://www.iab.com/VAST" version="4.4">
 <Ad id="ISCENE-23918">
 <InLine>
 <AdSystem>ADSERVER</AdSystem>
@@ -1199,7 +1199,7 @@ Bid Response
       	"id": "bid-cine-001",
       	"impid": "imp-1",
       	"price": 22.50,
-      	"adm": "<VAST version=\"4.2\"><!-- NonLinear VAST --></VAST>",
+      	"adm": "<VAST version=\"4.4\"><!-- NonLinear VAST --></VAST>",
       	"adid": "ad-brand-x-cine",
       	"adomain": ["brand-x.com"],
      
@@ -1222,7 +1222,7 @@ VAST Response
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
-<VAST xmlns="http://www.iab.com/VAST" version="4.2">
+<VAST xmlns="http://www.iab.com/VAST" version="4.4">
     <Ad id="123456">
         <InLine>
             <AdSystem>ADSERVER</AdSystem>
@@ -1339,7 +1339,7 @@ Bid Response
       	"id": "bid-cine-001",
       	"impid": "imp-1",
       	"price": 22.50,
-      	"adm": "<VAST version=\"4.2\"><!-- NonLinear VAST --></VAST>",
+      	"adm": "<VAST version=\"4.4\"><!-- NonLinear VAST --></VAST>",
       	"adid": "ad-brand-x-cine",
       	"adomain": ["brand-x.com"],
      
@@ -1361,7 +1361,7 @@ Bid Response
 
 VAST - Video Response
 ```xml
-<VAST version="INSERT VAST VERSION">
+<VAST version="4.4">
 <Ad>
 <InLine>
 <AdSystem>INSERT AD SYSTEM HERE</AdSystem>
@@ -1369,15 +1369,17 @@ VAST - Video Response
 <Impression/>
 <Creatives>
 <Creative>
+<NonLinearAds>
 <NonLinear>
 <Duration>00:00:10</Duration>
-<TrackingEvents/>
 <MediaFiles>
 <MediaFile height="INSERT AD HEIGHT HERE" width="INSERT AD WIDTH HERE" type="video/quicktime">
 <![CDATA[INSERT .MOV FILE URL HERE]]>
 </MediaFile>
 </MediaFiles>
 </NonLinear>
+<TrackingEvents/>
+</NonLinearAds>
 </Creative>
 </Creatives>
 </InLine>
@@ -1386,7 +1388,7 @@ VAST - Video Response
 ```
 
 ```xml
-<VAST version="4.2">
+<VAST version="4.4">
  <Ad id="ad_overlay_001">
    <InLine>
      <AdSystem version="1.0">ExampleAdServer</AdSystem>
@@ -1460,7 +1462,7 @@ VAST - Video Response
          <playbackmethod>2</playbackmethod>
        </Extension>
        <Extension type="attr" ext="adcom">
-         <attr>20</attr>
+         <attr>23</attr>
        </Extension>
      </Extensions>
    </InLine>
@@ -1472,7 +1474,7 @@ VAST Static Image Response
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
-<VAST xmlns="http://www.iab.com/VAST" version="4.2">
+<VAST xmlns="http://www.iab.com/VAST" version="4.4">
     <Ad id="123456">
         <InLine>
             <AdSystem>ADSERVER</AdSystem>
