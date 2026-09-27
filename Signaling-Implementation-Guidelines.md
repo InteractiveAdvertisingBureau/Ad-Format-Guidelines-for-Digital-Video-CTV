@@ -309,8 +309,9 @@ Menu Ad - Video Only - OpenRTB Response - Native Payload - VAST
   <Ad id="12345">
     <InLine>
       <AdSystem>Example DSP</AdSystem>
-      <AdTitle>CTV Video Ad</AdTitle>
       <Impression><![CDATA[https://example-dsp.com/impression?id=abc123]]></Impression>
+      <AdServingId>ServerName-a532d16d-4d7f-4440-bd29-2ec05553fc80</AdServingId>
+      <AdTitle>CTV Video Ad</AdTitle>
       <Creatives>
         <Creative>
           <Linear>
@@ -644,8 +645,9 @@ Menu Ad - Mixed - OpenRTB Response - Native Payload - VAST
   <Ad id="12345">
     <InLine>
       <AdSystem>Example DSP</AdSystem>
-      <AdTitle>CTV Video Ad</AdTitle>
       <Impression><![CDATA[https://example-dsp.com/impression?id=ghi789]]></Impression>
+      <AdServingId>ServerName-a532d16d-4d7f-4440-bd29-2ec05553fc80</AdServingId>
+      <AdTitle>CTV Video Ad</AdTitle>
       <Creatives>
         <Creative>
           <Linear>
@@ -663,6 +665,8 @@ Menu Ad - Mixed - OpenRTB Response - Native Payload - VAST
         </Creative>
       </Creatives>
     </InLine>
+  </Ad>
+</VAST>
 ```
 
 Pause & Screensaver Ad(s)
@@ -759,9 +763,18 @@ VAST
   <Ad id="pause-static-001">
     <InLine>
       <AdSystem version="1.0">ExampleAdServer</AdSystem>
-      <AdTitle>Brand X ScreensaverAd - Static</AdTitle>
+      <Extensions>
+		<Extension type="pos" ext="adcom">
+		  <pos>7</pos>
+		</Extension>
+
+		<Extension type="attr" ext="adcom">
+		  <attr>21</attr>
+		</Extension>
+      </Extensions>
       <Impression><![CDATA[https://track.example.com/imp?id=001]]></Impression>
       <AdServingId>ServerName-a1b2c3d4-e5f6-7890</AdServingId>
+      <AdTitle>Brand X ScreensaverAd - Static</AdTitle>
       <Creatives>
         <Creative id="creative-static-001" adId="AD-ID-001">
           <UniversalAdId idRegistry="ad-id.org">CNPA0484000H</UniversalAdId>
@@ -793,15 +806,6 @@ VAST
           </NonLinearAds>
         </Creative>
       </Creatives>
-      <Extensions>
-		<Extension type="pos" ext="adcom">
-		  <pos>7</pos>
-		</Extension>
-
-		<Extension type="attr" ext="adcom">
-		  <attr>21</attr>
-		</Extension>
-      </Extensions>
     </InLine>
   </Ad>
 </VAST>
@@ -907,9 +911,19 @@ VAST
   <Ad id="pause-cine-003">
     <InLine>
       <AdSystem version="1.0">ExampleAdServer</AdSystem>
-      <AdTitle>Brand Z Pause Ad - Cinemagraph</AdTitle>
+      <Extensions>
+
+		<Extension type="pos" ext="adcom">
+		  <pos>7</pos>
+		</Extension>
+
+		<Extension type="attr" ext="adcom">
+		  <attr>22</attr>
+		</Extension>
+      </Extensions>
       <Impression><![CDATA[https://track.example.com/imp?id=003]]></Impression>
       <AdServingId>ServerName-c3d4e5f6-a7b8-9012</AdServingId>
+      <AdTitle>Brand Z Pause Ad - Cinemagraph</AdTitle>
       <Creatives>
         <Creative id="creative-cine-003" adId="AD-ID-003">
           <UniversalAdId idRegistry="ad-id.org">CNPA0484002H</UniversalAdId>
@@ -962,17 +976,7 @@ VAST
           </NonLinearAds>
         </Creative>
       </Creatives>
-      <Extensions>
-
-		<Extension type="pos" ext="adcom">
-		  <pos>7</pos>
-		</Extension>
-
-		<Extension type="attr" ext="adcom">
-		  <attr>22</attr>
-		</Extension>
-        </Extension>
-
+    </InLine>
   </Ad>
 </VAST>
 ```
@@ -1056,9 +1060,10 @@ Static Image
 <Ad id="ISCENE-23918">
 <InLine>
 <AdSystem>ADSERVER</AdSystem>
-<AdTitle><![CDATA[ISCENE-23918]]></AdTitle>
-<Impression id="Imp"><![CDATA[IMPRESSION_COUNT]]></Impression>
 <Error><![CDATA[ERROR_TRACKER]]></Error>
+<Impression id="Imp"><![CDATA[IMPRESSION_COUNT]]></Impression>
+<AdServingId>ServerName-a532d16d-4d7f-4440-bd29-2ec05553fc80</AdServingId>
+<AdTitle><![CDATA[ISCENE-23918]]></AdTitle>
 <Creatives>
 <Creative id="1">
 <UniversalAdId idRegistry="your.registry">982765</UniversalAdId>
@@ -1093,9 +1098,10 @@ Video Response
 <Ad id="ISCENE-23918">
 <InLine>
 <AdSystem>ADSERVER</AdSystem>
-<AdTitle><![CDATA[ISCENE-23918]]></AdTitle>
-<Impression id="Imp"><![CDATA[IMPRESSION_COUNT]]></Impression>
 <Error><![CDATA[ERROR_TRACKER]]></Error>
+<Impression id="Imp"><![CDATA[IMPRESSION_COUNT]]></Impression>
+<AdServingId>ServerName-a532d16d-4d7f-4440-bd29-2ec05553fc80</AdServingId>
+<AdTitle><![CDATA[ISCENE-23918]]></AdTitle>
 <Creatives>
 <Creative id="1">
 <UniversalAdId idRegistry="your.registry">982765</UniversalAdId>
@@ -1226,9 +1232,21 @@ VAST Response
     <Ad id="123456">
         <InLine>
             <AdSystem>ADSERVER</AdSystem>
-            <AdTitle><![CDATA[123456]]></AdTitle>
-            <Impression id="Imp"><![CDATA[IMPRESSION_COUNT]]></Impression>
             <Error><![CDATA[ERROR_TRACKER]]></Error>
+        <Extensions>
+		<Extension type="plcmt" ext="adcom">
+		  <plcmt>8</plcmt>
+		</Extension>
+		<Extension type="pos" ext="adcom">
+		  <pos>16</pos>
+		</Extension>
+		<Extension type="playbackmethod" ext="adcom">
+		  <playbackmethod>2</playbackmethod>
+		</Extension>
+        </Extensions>
+            <Impression id="Imp"><![CDATA[IMPRESSION_COUNT]]></Impression>
+            <AdServingId>ServerName-a532d16d-4d7f-4440-bd29-2ec05553fc80</AdServingId>
+            <AdTitle><![CDATA[123456]]></AdTitle>
             <Creatives>
                 <Creative id="1">
 			          <UniversalAdId idRegistry="your.registry">98765</UniversalAdId>
@@ -1252,17 +1270,6 @@ VAST Response
                  </NonLinearAds>
                 </Creative>
             </Creatives>
-        <Extensions>
-		<Extension type="plcmt" ext="adcom">
-		  <plcmt>8</plcmt>
-		</Extension>
-		<Extension type="pos" ext="adcom">
-		  <pos>16</pos>
-		</Extension>
-		<Extension type="playbackmethod" ext="adcom">
-		  <playbackmethod>2</playbackmethod>
-		</Extension>
-        </Extensions>
         </InLine>
     </Ad>
 </VAST>
@@ -1365,19 +1372,24 @@ VAST - Video Response
 <Ad>
 <InLine>
 <AdSystem>INSERT AD SYSTEM HERE</AdSystem>
-<AdTitle>INSERT CREATIVE NAME HERE</AdTitle>
 <Impression/>
+<AdServingId>INSERT AD SERVING ID HERE</AdServingId>
+<AdTitle>INSERT CREATIVE NAME HERE</AdTitle>
 <Creatives>
 <Creative>
-<NonLinear>
+<NonLinearAds>
+<NonLinear height="INSERT AD HEIGHT HERE" width="INSERT AD WIDTH HERE">
 <Duration>00:00:10</Duration>
-<TrackingEvents/>
 <MediaFiles>
 <MediaFile height="INSERT AD HEIGHT HERE" width="INSERT AD WIDTH HERE" type="video/quicktime">
 <![CDATA[INSERT .MOV FILE URL HERE]]>
 </MediaFile>
 </MediaFiles>
 </NonLinear>
+<TrackingEvents>
+<Tracking event="creativeView"><![CDATA[INSERT TRACKING URL HERE]]></Tracking>
+</TrackingEvents>
+</NonLinearAds>
 </Creative>
 </Creatives>
 </InLine>
@@ -1390,11 +1402,25 @@ VAST - Video Response
  <Ad id="ad_overlay_001">
    <InLine>
      <AdSystem version="1.0">ExampleAdServer</AdSystem>
-     <AdTitle><![CDATA[Overlay Video Ad]]></AdTitle>
-     <AdServingId>ServerName-a1b2c3d4-e5f6-7890</AdServingId>
+     <Extensions>
+       <Extension type="plcmt" ext="adcom">
+         <plcmt>7</plcmt>
+       </Extension>
+       <Extension type="pos" ext="adcom">
+         <pos>14</pos>
+       </Extension>
+       <Extension type="playbackmethod" ext="adcom">
+         <playbackmethod>2</playbackmethod>
+       </Extension>
+       <Extension type="attr" ext="adcom">
+         <attr>20</attr>
+       </Extension>
+     </Extensions>
      <Impression id="imp_main">
        <![CDATA[https://track.example.com/imp?id=overlay001]]>
      </Impression>
+     <AdServingId>ServerName-a1b2c3d4-e5f6-7890</AdServingId>
+     <AdTitle><![CDATA[Overlay Video Ad]]></AdTitle>
      <Creatives>
        <Creative id="cr_overlay_001" adId="AD-ID-OVL-001">
          <UniversalAdId idRegistry="ad-id.org">CNPA0484020H</UniversalAdId>
@@ -1449,20 +1475,6 @@ VAST - Video Response
          </NonLinearAds>
        </Creative>
      </Creatives>
-     <Extensions>
-       <Extension type="plcmt" ext="adcom">
-         <plcmt>7</plcmt>
-       </Extension>
-       <Extension type="pos" ext="adcom">
-         <pos>14</pos>
-       </Extension>
-       <Extension type="playbackmethod" ext="adcom">
-         <playbackmethod>2</playbackmethod>
-       </Extension>
-       <Extension type="attr" ext="adcom">
-         <attr>20</attr>
-       </Extension>
-     </Extensions>
    </InLine>
  </Ad>
 </VAST>
@@ -1476,9 +1488,10 @@ VAST Static Image Response
     <Ad id="123456">
         <InLine>
             <AdSystem>ADSERVER</AdSystem>
-            <AdTitle><![CDATA[123456]]></AdTitle>
-            <Impression id="Imp"><![CDATA[IMPRESSION_COUNT]]></Impression>
      <Error><![CDATA[ERROR_TRACKER]]></Error>
+            <Impression id="Imp"><![CDATA[IMPRESSION_COUNT]]></Impression>
+            <AdServingId>ServerName-a532d16d-4d7f-4440-bd29-2ec05553fc80</AdServingId>
+            <AdTitle><![CDATA[123456]]></AdTitle>
             <Creatives>
                 <Creative id="1">
 			<UniversalAdId idRegistry="your.registry">98765</UniversalAdId>
